@@ -1,1 +1,3 @@
-# csb2025
+# CSB2025 – Cyber Security Base 2025
+
+This repository contains my submitted essays and exercises for the Cyber Security Base 2025 course series, offered by the University of Helsinki and MOOC.fi. The course focuses on developing core knowledge and practical skills in the field of cyber security, covering topics such as secure software development, vulnerabilities, web security, and advanced exploitation techniques.
