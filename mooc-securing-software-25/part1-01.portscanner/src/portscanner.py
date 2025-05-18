@@ -4,12 +4,16 @@ import socket
 
 
 def get_accessible_ports(address, min_port, max_port):
-	found_ports = []
+    found_ports = []
 
-	# write code here
+    for port in range(min_port, max_port + 1):
+        s = socket.socket()
+        result = s.connect_ex((address, port))
+        if result == 0:
+            found_ports.append(port)
+        s.close()
 
-	return found_ports
-
+    return found_ports
 
 def main(argv):
 	address = sys.argv[1]
