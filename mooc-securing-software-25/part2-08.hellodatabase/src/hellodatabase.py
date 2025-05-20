@@ -11,7 +11,9 @@ def read_database(conn):
 
 
 	# write code here
-
+	cursor = conn.cursor()
+	cursor.execute("SELECT id, name FROM Agent ORDER BY id")
+	agents = cursor.fetchall()
 	return agents
 
 

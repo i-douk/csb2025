@@ -24,4 +24,4 @@ def addView(request):
 
 def homePageView(request):
 	# shorter way of writing instead of loader
-	return render(request, 'pages/tasks.html')
+	return render(request, 'pages/tasks.html', {"tasks": tasks})

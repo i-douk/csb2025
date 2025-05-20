@@ -10,6 +10,10 @@
 
         <!-- TODO: add the ability to list tasks -->
         <ul id="tasks">
+              {% for task in tasks %}
+            <li>{{task}}
+            </li>
+            {% endfor %}
         </ul>
 
 
