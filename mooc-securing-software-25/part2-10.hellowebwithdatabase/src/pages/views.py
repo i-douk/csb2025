@@ -9,3 +9,11 @@ def homePageView(request):
 
 		
 	return HttpResponse(content)
+
+def dbMessageView(request):
+
+	id = request.GET.get('id')
+
+	contentarr = Message.objects.get(id__exact=id) 
+
+	return HttpResponse(contentarr.content)
